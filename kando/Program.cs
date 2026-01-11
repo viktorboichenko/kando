@@ -1,11 +1,12 @@
 using kando.Data;
+using kando.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddScoped<TaskService>();
 
 builder.Services.AddDbContext<KandoDbContext>(options => 
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
