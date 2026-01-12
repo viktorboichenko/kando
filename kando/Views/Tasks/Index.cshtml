@@ -1,0 +1,44 @@
+@using kando.Models
+@model List<kando.Models.TaskItem>
+
+@{
+    ViewData["Title"] = "Kando Board";
+}
+
+<div class="mb-4">
+    <h1 class="display-6">Kando Board</h1>
+</div>
+
+<div class="row h-100">
+    @foreach (var status in Enum.GetValues(typeof(kando.Models.TaskStatus)).Cast<kando.Models.TaskStatus>())
+    {
+        <div class="col-md-3">
+            <div class="card bg-light h-100 border-0 shadow-sm">
+                <div class="card-header fw-bold text-uppercase text-center bg-white">
+                    @status
+                </div>
+                
+                <div class="card-body p-2" style="min-height: 400px;">
+                    @foreach (var task in Model.Where(t => t.Status == status))
+                    {
+                        <div class="card mb-2 shadow-sm">
+                            <div class="card-body p-3">
+                                <h6 class="card-title fw-bold">@task.Title</h6>
+                                <p class="card-text small text-muted mb-0">
+                                    @task.Description
+                                </p>
+                            </div>
+                        </div>
+                    }
+                    
+                    @if (!Model.Any(t => t.Status == status))
+                    {
+                        <div class="text-center text-muted mt-5 small fst-italic">
+                            No tasks
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
