@@ -7,6 +7,9 @@
 
 <div class="mb-4">
     <h1 class="display-6">Kando Board</h1>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTaskModal">
+        + New Task
+    </button>
 </div>
 
 <div class="row h-100">
@@ -41,4 +44,36 @@
             </div>
         </div>
     }
+</div>
+<div class="modal fade" id="createTaskModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="Create" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input name="Title" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="Description" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Priority</label>
+                        <select name="Priority" class="form-select" 
+                                asp-items="Html.GetEnumSelectList<kando.Models.TaskPriority>()">
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

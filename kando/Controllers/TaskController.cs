@@ -12,4 +12,15 @@ public class TasksController(TaskService service) : Controller
         var tasks = await service.GetAllAsync();
         return View(tasks);
     }
+    
+    [HttpPost]
+    public async Task<IActionResult> Create(TaskItem task)
+    {
+        if (!ModelState.IsValid)
+        {
+            return RedirectToAction(nameof(Index));
+        }
+        await service.CreateAsync(task);
+        return RedirectToAction(nameof(Index));
+    }
 }

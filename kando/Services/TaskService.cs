@@ -14,4 +14,13 @@ public class TaskService(KandoDbContext context)
             .OrderByDescending(t => t.CreatedAt)
             .ToListAsync();
     }
+    
+    public async Task CreateAsync(TaskItem task)
+    {
+        task.Status = TaskStatus.Todo; 
+        task.CreatedAt = DateTime.UtcNow;
+        
+        context.Tasks.Add(task);
+        await context.SaveChangesAsync();
+    }
 }
