@@ -14,6 +14,16 @@ builder.Services.AddDbContext<KandoDbContext>(options =>
 
 var app = builder.Build();
 
+// This ensures the DB is created on any new machine
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<KandoDbContext>();
+    
+    // This applies any pending migrations (creating the DB if it doesn't exist)
+    context.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
