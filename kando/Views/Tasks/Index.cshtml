@@ -31,6 +31,13 @@
                                     @task.Description
                                 </p>
                             </div>
+                            <div class="card-footer d-flex justify-content-end gap-2">
+                                <form asp-action="Delete" method="post" asp-route-id="@task.Id" class="m-0">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     }
                     

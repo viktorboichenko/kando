@@ -23,4 +23,12 @@ public class TasksController(TaskService service) : Controller
         await service.CreateAsync(task);
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await service.DeleteAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

@@ -20,7 +20,19 @@ public class TaskService(KandoDbContext context)
         task.Status = TaskStatus.Todo; 
         task.CreatedAt = DateTime.UtcNow;
         
-        context.Tasks.Add(task);
+        await context.Tasks.AddAsync(task);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(Guid id)
+    {
+        var task = await context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
+        if (task is null)
+        {
+            return;
+        }
+
+        context.Tasks.Remove(task);
         await context.SaveChangesAsync();
     }
 }
