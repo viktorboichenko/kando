@@ -37,4 +37,11 @@ public class TasksController(TaskService service) : Controller
         await service.UpdateStatusAsync(id, status);
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Update(Guid id, string title, string? description)
+    {
+        await service.UpdateAsync(id, title, description);
+        return RedirectToAction(nameof(Index));
+    }
 }
