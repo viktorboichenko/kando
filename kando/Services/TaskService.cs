@@ -35,4 +35,16 @@ public class TaskService(KandoDbContext context)
         context.Tasks.Remove(task);
         await context.SaveChangesAsync();
     }
+
+    public async Task UpdateStatusAsync(Guid id, TaskStatus newStatus)
+    {
+        var task = await context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
+        if (task is null)
+        {
+            return;
+        }
+
+        task.Status = newStatus;
+        await context.SaveChangesAsync();
+    }
 }

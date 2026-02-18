@@ -30,6 +30,23 @@
                                 <p class="card-text small text-muted mb-0">
                                     @task.Description
                                 </p>
+                                <div class="mt-2">
+                                    <form asp-action="UpdateStatus" method="post" asp-route-id="@task.Id" class="m-0">
+                                        <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                                            @foreach (var statusOption in Enum.GetValues(typeof(kando.Models.TaskStatus)).Cast<kando.Models.TaskStatus>())
+                                            {
+                                                @if (statusOption == task.Status)
+                                                {
+                                                    <option value="@statusOption" selected>@statusOption</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@statusOption">@statusOption</option>
+                                                }
+                                            }
+                                        </select>
+                                    </form>
+                                </div>
                             </div>
                             <div class="card-footer d-flex justify-content-end gap-2">
                                 <form asp-action="Delete" method="post" asp-route-id="@task.Id" class="m-0">

@@ -25,10 +25,16 @@ public class TasksController(TaskService service) : Controller
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(Guid id)
     {
         await service.DeleteAsync(id);
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateStatus(Guid id, TaskStatus status)
+    {
+        await service.UpdateStatusAsync(id, status);
         return RedirectToAction(nameof(Index));
     }
 }
