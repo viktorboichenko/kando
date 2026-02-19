@@ -1,6 +1,7 @@
 using kando.Models;
 using kando.Services;
 using Microsoft.AspNetCore.Mvc;
+using TaskPriority = kando.Models.TaskPriority;
 using TaskStatus = kando.Models.TaskStatus;
 
 namespace kando.Controllers;
@@ -39,9 +40,9 @@ public class TasksController(TaskService service) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(Guid id, string title, string? description)
+    public async Task<IActionResult> Update(Guid id, string title, string? description, TaskPriority priority)
     {
-        await service.UpdateAsync(id, title, description);
+        await service.UpdateAsync(id, title, description, priority);
         return RedirectToAction(nameof(Index));
     }
 }

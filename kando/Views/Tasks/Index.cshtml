@@ -126,6 +126,22 @@
                             <label class="form-label">Description</label>
                             <textarea name="description" class="form-control" rows="3">@task.Description</textarea>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Priority</label>
+                            <select name="priority" class="form-select">
+                                @foreach (var p in Enum.GetValues(typeof(kando.Models.TaskPriority)).Cast<kando.Models.TaskPriority>())
+                                {
+                                    @if (p == task.Priority)
+                                    {
+                                        <option value="@p" selected>@p</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@p">@p</option>
+                                    }
+                                }
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

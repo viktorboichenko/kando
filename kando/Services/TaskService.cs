@@ -1,6 +1,7 @@
 using kando.Data;
 using kando.Models;
 using Microsoft.EntityFrameworkCore;
+using TaskPriority = kando.Models.TaskPriority;
 using TaskStatus = kando.Models.TaskStatus;
 
 namespace kando.Services;
@@ -47,7 +48,7 @@ public class TaskService(KandoDbContext context)
         await context.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(Guid id, string title, string? description)
+    public async Task UpdateAsync(Guid id, string title, string? description, TaskPriority priority)
     {
         var task = await context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
         if (task is null)
@@ -57,6 +58,7 @@ public class TaskService(KandoDbContext context)
 
         task.Title = title;
         task.Description = description;
+        task.Priority = priority;
         await context.SaveChangesAsync();
     }
 }
